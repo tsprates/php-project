@@ -39,7 +39,7 @@ class AccountController extends Controller
     {
         $client = auth('api')->user();
         
-        return response()->json(['transactions' => $client->transactions]);
+        return response()->json(['transactions' => $client->transactions()->orderBy('date')->get()]);
     }
     
     /**
