@@ -39,7 +39,7 @@ class AccountController extends Controller
     {
         $client = auth('api')->user();
         
-        return response()->json(['transactions' => $client->transactions()->orderBy('date')->get()]);
+        return response()->json(['transactions' => array_reverse($client->transactions->toArray())]);
     }
     
     /**
@@ -92,7 +92,7 @@ class AccountController extends Controller
         $client->save();
         $client->refresh();
 
-        $this->addTransaction('width', $amount, $client->id);
+        $this->addTransaction('withdraw', $amount, $client->id);
         
         return response()->json(
             [
