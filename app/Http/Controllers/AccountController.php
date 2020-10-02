@@ -53,6 +53,10 @@ class AccountController extends Controller
         $amount = $request->amount;
         
         $client = auth('api')->user();
+        if ($amount <= 0) {
+            return $this->respondError('invalid amount');
+        }
+
         $client->balance += $amount;
         
         $client->save();
@@ -83,7 +87,7 @@ class AccountController extends Controller
         $amount = $request->amount;
         
         $client = auth('api')->user();
-        if ($client->balance < $amount) {
+        if ($client->balance < $amount || $amount <= 0) {
             return $this->respondError('invalid amount');
         }
 
@@ -117,7 +121,7 @@ class AccountController extends Controller
         $amount = $request->amount;
         
         $client = auth('api')->user();
-        if ($client->balance < $amount) {
+        if ($client->balance < $amount || $amount <= 0) {
             return $this->respondError('invalid amount');
         }
         
