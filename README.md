@@ -11,3 +11,8 @@ composer install
 ```
 php artisan jwt:secret
 ```
+
+* Banco de dados:
+```
+php artisan migrate:fresh --seed
+```
