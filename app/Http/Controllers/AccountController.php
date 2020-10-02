@@ -51,8 +51,8 @@ class AccountController extends Controller
     public function deposit(Request $request)
     {
         $amount = $request->amount;
-        
         $client = auth('api')->user();
+        
         if ($amount <= 0) {
             return $this->respondError('invalid amount');
         }
@@ -85,9 +85,9 @@ class AccountController extends Controller
     public function withdraw(Request $request)
     {
         $amount = $request->amount;
-        
         $client = auth('api')->user();
-        if ($client->balance < $amount || $amount <= 0) {
+        
+        if ($amount <= 0 || $client->balance < $amount) {
             return $this->respondError('invalid amount');
         }
 
@@ -119,9 +119,9 @@ class AccountController extends Controller
     public function transfer(Request $request)
     {
         $amount = $request->amount;
-        
         $client = auth('api')->user();
-        if ($client->balance < $amount || $amount <= 0) {
+        
+        if ($amount <= 0 || $client->balance < $amount) {
             return $this->respondError('invalid amount');
         }
         
@@ -204,6 +204,7 @@ class AccountController extends Controller
         $transaction->amount  = $amount;
         $transaction->account = $account;
         $transaction->user_id = $id;
+        
         $transaction->save();
     }
 }
