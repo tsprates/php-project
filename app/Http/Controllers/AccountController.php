@@ -128,19 +128,20 @@ class AccountController extends Controller
         $account = Client::where('account', $request->account);
         if (! $account->exists()) {
             return $this->respondError('account not found');
-        } else {
-            $to = $account->first();
-        }      
+        }
         
+        $to = $account->first();
+        
+        $to->balance     += $amount;
         $client->balance -= $amount;
-        $to->balance += $amount;
+
+        $to->save();
+        $to->refresh();
+        
         
         $client->save();
         $client->refresh();
         
-        $to->save();
-        $to->refresh();
-
         $this->addTransaction(
             'transfer_to',
             $amount, 
