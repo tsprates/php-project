@@ -45,7 +45,7 @@ class AccountController extends Controller
     /**
      * Deposit the given amount.
      *
-     * @return \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function deposit(Request $request)
@@ -79,7 +79,7 @@ class AccountController extends Controller
     /**
      * Withdraw the given amount.
      *
-     * @return \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function withdraw(Request $request)
@@ -113,7 +113,7 @@ class AccountController extends Controller
     /**
      * Withdraw the given amount.
      *
-     * @return \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function transfer(Request $request)
@@ -132,12 +132,11 @@ class AccountController extends Controller
         
         $to = $account->first();
         
-        $to->balance     += $amount;
         $client->balance -= $amount;
+        $to->balance     += $amount;
 
         $to->save();
         $to->refresh();
-        
         
         $client->save();
         $client->refresh();
@@ -188,9 +187,9 @@ class AccountController extends Controller
     /**
      * Register transactions
      *
-     * @param  string  $type    Transaction's type
-     * @param  string  $amount  Amount
-     * @param  integer $id      Client's id
+     * @param  string  $type    Transaction type
+     * @param  float   $amount  Amount
+     * @param  integer $id      Client id
      * @param  integer $account Account
      * @return void
      */

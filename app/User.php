@@ -44,7 +44,9 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * Get the transactions.
+     * Get the transactions
+     *
+     * @return mixed
      */
     public function transactions()
     {

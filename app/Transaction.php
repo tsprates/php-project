@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    /**
+     * No timestamps.
+     *
+     * @var boolean
+     */
     public $timestamps = false;
     
     /**
